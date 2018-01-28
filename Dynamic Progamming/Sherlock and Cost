@@ -1,0 +1,57 @@
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <limits.h>
+#include <stdbool.h>
+int dp(int i, int m, int s[][2],int arr[])
+{
+    int a,b;
+    if(s[i][m]!=-1)
+        return s[i][m];
+    if(i==0)
+    {
+        s[i][m]=0;
+        return s[i][m];
+    }
+    if(m==0)
+    {
+        a = arr[i-1]-1+dp(i-1,1,s,arr);
+        b = dp(i-1,0,s,arr);
+        s[i][m]=a>b?a:b;
+        return s[i][m];
+    }
+    else
+    {
+        a = arr[i] -1 + dp(i-1,0,s,arr);
+        b = arr[i] - arr[i-1] + dp(i-1,1,s,arr);
+        s[i][m]=a>b?a:b;
+        return s[i][m];
+    }
+}
+int cost(int n, int* arr) {
+    // Complete this function
+    int s[n][2],i;
+    for(i=0;i<n;i++)
+    {
+        s[i][0]=s[i][1]=-1;
+    }
+    return((dp(n-1,0,s,arr)>dp(n-1,1,s,arr))?dp(n-1,0,s,arr):dp(n-1,1,s,arr));
+}
+
+int main() {
+    int t; 
+    scanf("%i", &t);
+    for(int a0 = 0; a0 < t; a0++){
+        int n; 
+        scanf("%i", &n);
+        int *arr = malloc(sizeof(int) * n);
+        for (int arr_i = 0; arr_i < n; arr_i++) {
+           scanf("%i",&arr[arr_i]);
+        }
+        int result = cost(n, arr);
+        printf("%d\n", result);
+    }
+    return 0;
+}
