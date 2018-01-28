@@ -1,0 +1,83 @@
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <limits.h>
+#include <stdbool.h>
+
+int candies(int n,int as,int* arr,int r[]) {
+    // Complete this function
+    if(r[n]!=-1)
+        return r[n];
+    if(as==1)
+        return 1;
+    if(n==0)
+    {
+        if(arr[n]>arr[n+1])
+            r[n]=candies(n+1,as,arr,r)+1;
+        else 
+        {
+            r[n]=1;
+        }
+    }
+    else if(n==as-1)
+    {
+        if(arr[n]>arr[n-1])
+            r[n]=candies(n-1,as,arr,r)+1;
+        else 
+        {
+            r[n]=1;
+        }
+    }
+    else
+    {
+        if(arr[n]>arr[n+1] && arr[n+1]>arr[n-1])
+        {
+            r[n]=candies(n+1,as,arr,r)+1;
+        }
+        else if(arr[n]>arr[n-1] && arr[n-1]>arr[n+1])
+        {
+            r[n]=candies(n-1,as,arr,r)+1;
+        }
+        else if(arr[n]>arr[n+1])
+            r[n]=candies(n+1,as,arr,r)+1;
+        else if(arr[n]>arr[n-1])
+            r[n]=candies(n-1,as,arr,r)+1;
+        else r[n]=1;
+    }
+    return r[n];
+}
+
+int main() {
+    int n,i; 
+    scanf("%i", &n);
+    int r[n];
+    int *arr = malloc(sizeof(int) * n);
+    for (int arr_i = 0; arr_i < n; arr_i++) {
+       scanf("%i",&arr[arr_i]);
+        r[arr_i]=-1;
+    }
+    long long int result = 0;
+    int res;
+    for(i=n-1;i>=0;i--)
+    {
+        candies(i, n, arr, r);
+    }
+    for(i=1;i<n-1;i++)
+    {
+        if(arr[i]>arr[i+1] && arr[i]>arr[i-1])
+        {
+            if(r[i-1]>r[i+1])
+                r[i]=r[i-1]+1;
+            else r[i]=r[i+1]+1;
+        }
+    }
+    
+    for(i=0;i<n;i++)
+    {
+        result = result + r[i];
+    }
+    printf("%lld\n", result);
+    return 0;
+}
