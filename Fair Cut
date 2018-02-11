@@ -1,0 +1,69 @@
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <limits.h>
+#include <stdbool.h>
+void dp(long int on, long int i, long int j, int k, long int a[],long int fc[][on-k+1])
+{
+    long int l=LONG_MAX,r=LONG_MAX;
+    long int li,ri;
+    if(j!=0 && j<=on-k)
+        r = fc[i][j-1] + (2*(i)-k)*a[i+j-1];
+    if(i!=0 && i<=k)
+        l = fc[i-1][j] + (2*(j)+k-on)*a[i+j-1];
+    if(l<r)
+    {
+        fc[i][j]=l;
+    }
+    else
+    {
+        fc[i][j]=r;
+    }
+}
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    long int i,j,k,n,temp,ic=0,jc=0;
+    scanf("%ld %ld",&n,&k);
+    long int a[3000]={0};
+    if(k>(n-k))
+        k=n-k;
+    long int fc[k+1][n-k+1];
+    for(i=0;i<n;i++)
+    {
+        scanf("%ld",&a[i]);
+    }
+    for(i=0;i<n-1;i++)
+    {
+        for(j=0;j<n-1;j++)
+        {
+            if(a[j]>a[j+1])
+            {
+                temp=a[j];
+                a[j]=a[j+1];
+                a[j+1]=temp;
+            }
+        }
+    }
+    for(i=0;i<=k;i++)
+    {
+        for(j=0;j<=n-k;j++)
+        {
+            fc[i][j]=0;
+        }
+    }
+    fc[0][0]=0;
+    long int res=0;
+    for(i=0;i<=k;i++)
+    {
+        for(j=0;j<=(n-k);j++)
+        {
+            if(i==0 && j==0)
+                continue;
+            dp(n,i,j,k,a,fc);
+        }
+    }
+    printf("%ld\n",fc[k][n-k]);
+    return 0;
+}
