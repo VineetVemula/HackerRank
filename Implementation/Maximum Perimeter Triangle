@@ -1,0 +1,65 @@
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <limits.h>
+#include <stdbool.h>
+
+long int* maximumPerimeterTriangle(long int l_size, long int* l, long int *result_size) {
+    // Complete this function
+    long int i,j,k,p=0;
+    long int* result=malloc(sizeof(long int) * 3);
+    for(i=l_size-1;i>=2;i--)
+    {
+        if(l[i-2]+l[i-1]>l[i])
+        {
+            if(l[i]+l[i-1]+l[i-2]>p)
+            {
+                p=l[i]+l[i-1]+l[i-2];
+                result[0]=l[i-2];
+                result[1]=l[i-1];
+                result[2]=l[i];
+            }
+        }
+    }
+    return result;
+}
+
+int main() {
+    long int n; 
+    scanf("%li", &n);
+    long int *l = malloc(sizeof(long int) * n);
+    for (long int l_i = 0; l_i < n; l_i++) {
+       scanf("%li",&l[l_i]);
+    }
+    long int result_size=3,i,j,k;
+    for(i=0;i<n-1;i++)
+    {
+        for(j=0;j<n-1;j++)
+        {
+            if(l[j]>l[j+1])
+            {
+                k=l[j];
+                l[j]=l[j+1];
+                l[j+1]=k;
+            }
+        }
+    }
+    long int* result = maximumPerimeterTriangle(n, l, &result_size);
+    if(result[0]==0)
+    {
+        printf("-1");
+        return 0;
+    }
+    for(long int result_i = 0; result_i < result_size; result_i++) {
+        if(result_i) {
+            printf(" ");
+        }
+        printf("%ld", result[result_i]);
+    }
+    puts("");
+
+
+    return 0;
+}
