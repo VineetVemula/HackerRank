@@ -1,0 +1,30 @@
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <limits.h>
+#include <stdbool.h>
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    int n,k;
+    int cost[n];
+    long int sum=0,ans;
+    int i;
+    scanf("%d %d",&n,&k);
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&cost[i]);
+        if(i!=k)
+            sum = sum + cost[i];
+    }
+    scanf("%ld",&ans);
+    sum=sum/2;
+    if(ans==sum)
+    {
+        printf("Bon Appetit");
+    }
+    else printf("%ld",ans-sum);
+    return 0;
+}
