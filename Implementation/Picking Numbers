@@ -1,0 +1,47 @@
+int pickingNumbers(int a_count, int* a) {
+int i,j,k,max=0,b[a_count][2],temp;
+for(i=0;i<a_count-1;i++)
+{
+    b[i][0]=b[i][1]=-1;
+    for(j=0;j<a_count-1;j++)
+    {
+        if(a[j]>a[j+1])
+        {
+            temp=a[j];
+            a[j]=a[j+1];
+            a[j+1]=temp;
+        }
+    }
+}
+b[a_count-1][0]=b[a_count-1][1]=-1;
+
+for(i=0;i<a_count;i++)
+{
+    for(j=0;j<a_count;j++)
+    {
+        if(b[j][0]==-1)
+        {
+            b[j][0]=a[i];
+            b[j][1]=1;
+            break;
+        }
+        if(b[j][0]==a[i])
+        {
+            b[j][1] +=1;
+            break;
+        }
+    }
+}
+for(i=0;i<a_count && b[i][0]!=-1;i++)
+{
+    if(b[i+1][0]==b[i][0]+1)
+    {
+        k = b[i][1] + b[i+1][1];
+        if(k>max)
+            max=k;
+    }
+    else if(max<b[i][1])
+        max=b[i][1];
+}
+return max;
+}
