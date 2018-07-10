@@ -1,0 +1,22 @@
+char* kangaroo(int x1, int v1, int x2, int v2) {
+//printf("%d\n",(x1-x2)%(v1-v2));
+char * str1 = "YES";
+char * str2 = "NO";
+if(x1==x2)
+{
+    if(v1==v2)
+        return str1;
+    else return str2;
+}
+if(v1==v2)
+{
+    if(x1==x2)
+        return str1;
+    else return str2;
+}
+if((x2-x1)%(v1-v2)==0 && v1>v2)
+{
+    return str1;
+}
+else return str2;
+}
