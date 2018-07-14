@@ -1,0 +1,21 @@
+int* breakingRecords(int scores_count, int* scores, int* result_count) {
+    int max,min;
+    int * arr = (int*)calloc(2,sizeof(int));
+    max = min = scores[0];
+    int i;
+    *result_count=2;
+    for(i=1;i<scores_count;i++)
+    {
+        if(max<scores[i])
+        {
+            max=scores[i];
+            arr[0]++;
+        }
+        if(min>scores[i])
+        {
+            min=scores[i];
+            arr[1]++;
+        }
+    }
+    return arr;
+}
