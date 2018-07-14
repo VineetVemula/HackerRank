@@ -1,0 +1,97 @@
+void almostSorted(int arr_count, int* arr) {
+    int a[arr_count],b[arr_count],count=0,st,end;
+    int i;
+    if(arr_count==1)
+    {
+        printf("yes\n");
+        return;
+    }
+    if(arr_count==2)
+    {
+        printf("yes\n");
+        if(arr[0]>arr[1])
+        {
+            printf("swap 1 2\n");
+        }
+        return;
+    }
+    for(i=0;i<arr_count-1;i++)
+    {
+        if(arr[i]>arr[i+1])
+        {
+            a[i] = 1;
+            count++;
+            if(count==1)
+                st=i;
+            end=i;
+        }
+        else a[i]=0;
+    }
+    a[arr_count-1]=0;
+    if(count==0)
+    {
+        printf("yes\n");
+        return;
+    }
+    if(count==1)
+    {
+        if(st+2!=arr_count && arr[st]>arr[st+2])
+        {
+            printf("no\n");
+            return;
+        }
+        if(st!=0 && arr[st+1]<arr[st-1])
+        {
+            printf("no\n");
+            return;
+        }
+        printf("yes\n");
+        printf("swap %d %d\n",st+1,end+1+1);
+        return;
+    }
+    if(count==2)
+    {
+        if(arr[end+1]<arr[st])
+        {
+            if(arr[end+1]<arr[st+1] && arr[st]>arr[end])
+            {
+                if((st!=0 && arr[end+1]<arr[st-1]) || (end+2!=arr_count && arr[st]>arr[end+2]))
+                {
+                    printf("no\n");
+                    return;
+                }
+                    printf("yes\n");
+                    printf("swap %d %d\n",st+1,end+1+1);
+                    return;
+            }
+        }
+        printf("no\n");
+        return;
+    }
+    if(count>2)
+    {
+        for(i=st;i<=end;i++)
+        {
+            if(a[i]!=1)
+            {
+                printf("no\n");
+                return;
+            }
+        }
+        if(st!=0 && arr[end+1]<arr[st-1])
+        {
+            printf("no\n");
+            return;
+        }
+        if(end+2!=arr_count && arr[st]>arr[end+2])
+        {
+            printf("no\n");
+            return;
+        }
+        printf("yes\n");
+        printf("reverse %d %d\n",st+1,end+1+1);
+        return;
+    }
+    printf("no\n");
+    return;
+}
