@@ -1,0 +1,27 @@
+char** cavityMap(int grid_count, char** grid, int* result_count) {
+
+int i,j;
+    *result_count = grid_count;
+    for(i=1;i<grid_count-1;i++)
+    {
+        for(j=1;j<grid_count-1;j++)
+        {
+            printf("%c ",grid[i][j]);
+            if(grid[i-1][j]!='X' && (grid[i][j])>(grid[i-1][j]))
+            {
+                if(grid[i+1][j]!='X' && (grid[i][j])>(grid[i+1][j]))
+                {
+                    if(grid[i][j-1]!='X' && (grid[i][j])>(grid[i][j-1]))
+                    {
+                        if(grid[i][j+1]!='X' && grid[i][j]>(grid[i][j+1]))
+                        {
+                            grid[i][j]='X';
+                        }
+                    }
+                }
+            }
+        }
+        printf("\n");
+    }
+    return grid;
+}
