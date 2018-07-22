@@ -1,0 +1,26 @@
+int getMinimumCost(int k, int c_count, int* c) {
+    int i,j,cost=0,count=0,mul=1,temp;
+    for(i=0;i<c_count-1;i++)
+    {
+        for(j=0;j<c_count-1;j++)
+        {
+            if(c[j]>c[j+1])
+            {
+                temp = c[j];
+                c[j]=c[j+1];
+                c[j+1]=temp;
+            }
+        }
+    }
+    for(i=c_count-1;i>=0;i--)
+    {
+        cost = cost + mul*c[i];
+        count++;
+        if(count==k)
+        {
+            count=0;
+            mul++;
+        }
+    }
+    return cost;
+}
