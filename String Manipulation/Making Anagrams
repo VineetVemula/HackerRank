@@ -1,0 +1,24 @@
+int makeAnagram(char* a, char* b) {
+int * arr1,* arr2;
+arr1 = (int*)calloc(26,sizeof(int));
+arr2 = (int*)calloc(26,sizeof(int));
+int i,j,k,n,m,temp=0,count=0;
+m = strlen(a);
+n = strlen(b);
+for(i=0;i<m;i++)
+{
+    temp = (int)(a[i]) - 97;
+    arr1[temp]++;
+}
+for(i=0;i<n;i++)
+{
+    temp = (int)(b[i]) - 97;
+    arr2[temp]++;
+}
+for(i=0;i<26;i++)
+{
+    count = count + abs(arr1[i]-arr2[i]);
+    printf("%d ",arr1[i]);
+}
+return count;
+}
